@@ -1,10 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export interface MobileProps {
-  isMobile: () => boolean;
-}
-
 const MobileScreenCutoffValue = 1000;
 
 export default function IsMobile() {
