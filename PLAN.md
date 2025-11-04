@@ -7,6 +7,7 @@ Features:
   - Logo
   - Search Bar for searching posts AND users
     - Search will bring to page with tabs to swap between posts/profiles using the search word
+    - Search Filters (time, following)
   - Profile page
     - Route to /me page for the current user
     - Route to /guest if the user is not logged in
@@ -14,7 +15,7 @@ Features:
   - Messages
   - Logout button
   - ThemeSwitcher
-  - Settings?
+  - Settings
 
 - Posts
 
@@ -31,6 +32,7 @@ Features:
   - Likes
 
 - Single post
+
   - Show post on left side
     - Author display name is clickable
   - Comments box below
@@ -38,4 +40,29 @@ Features:
   - Reply box opens under a comment when 'reply' is clicked
   - Replying to a reply adds @Display_Name to the reply box automatically (clickable)
   - Right side shows author card (name, avatar, blurb, number of posts, number of likes, created at date)
-  - Below card is card list of other posts by author
+  - Below author card is card-list of other posts by author
+
+- Profile
+
+  - Show user profile header at the top in card form (name, blurb, created time, follower count, following count, posts count, likes count, badge)
+    - Message, follow/unfollow, block, remove follower buttons
+    - Owner sees edit profile option to edit blurb, avatar_url, display_name
+  - Show posts in expandable accordion form (10 per page)
+
+- Settings
+
+  - Auth controlled settings here, changing email, password, etc.
+  - Other preferences
+
+- Add a post
+
+  - Regular form to create new post
+  - Check for post content lenghts
+  - Display live character count for entry fields
+  - Future feature: scheduled posts?
+
+- Create profile
+
+  - Email, confirm email
+  - Display Name
+  - Password, confirm password

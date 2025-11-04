@@ -34,3 +34,9 @@ export type supabaseReply = {
   updated_at: string;
   likes_count: number;
 };
+
+export type otherAuthorPosts = {
+  title: string;
+  author_profile: supabaseProfile;
+  created_at: string;
+};
