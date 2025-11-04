@@ -65,4 +65,4 @@ Features:
 
   - Email, confirm email
   - Display Name
-  - Password, confirm password
+  - Password, confirm password (Show password button)
