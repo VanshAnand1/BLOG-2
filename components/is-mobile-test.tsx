@@ -1,14 +1,14 @@
 "use client";
-import IsMobile from "@/lib/helpers/isMobile";
+import { ScreenSize } from "@/lib/helpers/screenSize";
 
 export default function Test() {
-  return (
-    <div>
-      {IsMobile() ? (
-        <div className="bg-gray-400 text-white">I am on mobile</div>
-      ) : (
-        <div className="bg-sunset text-navy">I am NOT on mobile</div>
-      )}
-    </div>
-  );
+  const screenSize = ScreenSize();
+  switch (screenSize) {
+    case "small":
+      return <div>small screen size</div>;
+    case "medium":
+      return <div>medium screen size</div>;
+    case "large":
+      return <div>large screen size</div>;
+  }
 }
