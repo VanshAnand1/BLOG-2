@@ -1,5 +1,6 @@
 "use client";
-import { Button } from "./ui/button";
+
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,17 +10,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
 
 const ThemeSwitcher = () => {
-  const [mounted] = useState(() => typeof window !== "undefined");
   const { theme, setTheme } = useTheme();
+
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   if (!mounted) {
     return null;
   }
 
   const ICON_SIZE = 16;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -67,5 +76,4 @@ const ThemeSwitcher = () => {
     </DropdownMenu>
   );
 };
-
-export { ThemeSwitcher };
+export default ThemeSwitcher;
