@@ -17,6 +17,7 @@
   --color-sunset: #f2d0a4;
   --color-periwinkle: #a7abdd;
   --color-navy: #2b3a42;
+  --color-aquablue: #2a7eff;
 }
 
 @media (prefers-color-scheme: dark) {

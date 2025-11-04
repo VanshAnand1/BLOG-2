@@ -17,6 +17,7 @@ export default {
         sunset: "#F2D0A4",
         periwinkle: "#A7ABDD",
         navy: "#2B3A42",
+        aquablue: "#2a7eff",
       },
     },
   },

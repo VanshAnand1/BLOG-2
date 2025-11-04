@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <div className="bg-blue-500">Words for color to show</div>
+      <div className="bg-aquablue">Words for color to show</div>
       <div className="bg-lightgray">Words for color to show</div>
       <div className="bg-zomp">Words for color to show</div>
       <div className="bg-teagreen">Words for color to show</div>
