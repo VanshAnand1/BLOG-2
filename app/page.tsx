@@ -1,9 +1,13 @@
+import Test from "@/components/is-mobile-test";
 import ThemeSwitcher from "@/components/theme-switcher";
+import IsMobile from "@/lib/helpers/isMobile";
+
 export default function Home() {
   return (
     <div className="min-h-screen p-8 bg-aquablue dark:bg-lightgray">
       <ThemeSwitcher />
-      <div className="mt-8 space-y-4 flex flex-col dark:gap-12 gap-6">
+      <Test isMobile={IsMobile} />
+      <div className="mt-8 space-y-4 flex flex-col sm:flex-row dark:gap-12 gap-6">
         <div className="bg-aquablue p-4">Words for color to show</div>
         <div className="bg-lightgray p-4">Words for color to show</div>
         <div className="bg-zomp p-4">Words for color to show</div>
