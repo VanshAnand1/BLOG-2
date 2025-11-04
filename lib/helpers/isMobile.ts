@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export const MobileScreenCutoffValue = 800;
+export const MobileScreenCutoffValue = 1000;
 export interface MobileProps {
   isMobile: (maxWidth: number) => boolean;
 }

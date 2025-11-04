@@ -2,8 +2,13 @@
 import { MobileProps, MobileScreenCutoffValue } from "@/lib/helpers/isMobile";
 
 export default function Test(props: MobileProps) {
-  if (props.isMobile(MobileScreenCutoffValue)) {
-    return <div>On Mobile</div>;
-  }
-  return <div>Not on Mobile</div>;
+  return (
+    <div>
+      {props.isMobile(MobileScreenCutoffValue) ? (
+        <div className="bg-gray-400 text-white">I am on mobile</div>
+      ) : (
+        <div className="bg-sunset text-navy">I am NOT on mobile</div>
+      )}
+    </div>
+  );
 }
