@@ -8,6 +8,7 @@ Features:
   - Search Bar for searching posts AND users
     - Search will bring to page with tabs to swap between posts/profiles using the search word
     - Search Filters (time, following)
+  - Add post
   - Profile page
     - Route to /me page for the current user
     - Route to /guest if the user is not logged in
