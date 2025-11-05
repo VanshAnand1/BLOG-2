@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 import {
   Card,
   CardHeader,
@@ -11,15 +12,20 @@ import {
   CardContent,
 } from "../ui/card";
 
-export default function SignUpForm() {
+export default function SignUpForm({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) {
   return (
-    <Card className="flex flex-col gap-6">
-      <CardHeader>
-        <CardTitle>Title</CardTitle>
-        <CardDescription>Description</CardDescription>
-      </CardHeader>
-      <CardContent>Content</CardContent>
-      <CardFooter>Footer</CardFooter>
-    </Card>
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Title</CardTitle>
+          <CardDescription>Description</CardDescription>
+        </CardHeader>
+        <CardContent>Content</CardContent>
+        <CardFooter>Footer</CardFooter>
+      </Card>
+    </div>
   );
 }
