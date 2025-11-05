@@ -70,15 +70,11 @@ export default function SignUpForm({
         email,
         password,
         options: {
-          data: { displayName },
+          data: { display_name: displayName },
           emailRedirectTo: `${window.location.origin}/protected`,
         },
       });
-      if (error) {
-        setError(error.message ?? "An Unknown Supabase error has occured");
-        setIsLoading(false);
-        return;
-      }
+      if (error) throw error;
 
       // toast
       router.push("/auth/sign-up-success");
