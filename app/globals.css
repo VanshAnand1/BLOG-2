@@ -8,9 +8,9 @@
   }
 
   :root {
-    --background: 34 75% 80%;
+    --background: 189 76.3% 85.1%;
     --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
+    --card: 320 65.2% 9%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
@@ -35,9 +35,9 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 20 20% 20%;
+    --background: 5 5% 15%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
+    --card: 203 60.5% 44.7%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;

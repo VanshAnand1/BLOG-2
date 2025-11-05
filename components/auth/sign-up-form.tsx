@@ -13,7 +13,7 @@ import {
 
 export default function SignUpForm() {
   return (
-    <Card>
+    <Card className="flex flex-col gap-6">
       <CardHeader>
         <CardTitle>Title</CardTitle>
         <CardDescription>Description</CardDescription>
