@@ -26,21 +26,34 @@ export default function SignUpForm({
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
+  const passwordsMatch = () => {
+    return password === confirmPassword;
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    const supabase = createClient();
+    setIsLoading(true);
+    setError(null);
+
+    if (!passwordsMatch()) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
   };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Title</CardTitle>
-          <CardDescription>Description</CardDescription>
+          <CardTitle>Sign up</CardTitle>
+          <CardDescription>Create a new account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignup}>
@@ -110,11 +123,19 @@ export default function SignUpForm({
                   }}
                 />
               </div>
+              <div className="flex flex-col gap-2">
+                <div
+                  className={`text-sm text-red-500 ${
+                    error ? `opacity-100 visible` : `opacity-0 invisible`
+                  }`}
+                >
+                  {error ? error : "An unexpected error occured"}
+                </div>
 
-              {error && <div className="text-sm text-red-500">{error}</div>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Signing up..." : "Sign up"}
-              </Button>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Signing up..." : "Sign up"}
+                </Button>
+              </div>
             </div>
           </form>
         </CardContent>
