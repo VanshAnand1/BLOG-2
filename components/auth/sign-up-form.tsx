@@ -104,6 +104,7 @@ export default function SignUpForm({
                   id="email"
                   name="email"
                   placeholder="name@email.com"
+                  className="rounded-xl"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -117,6 +118,7 @@ export default function SignUpForm({
                   id="confirmEmail"
                   name="confirmEmail"
                   placeholder="name@email.com"
+                  className="rounded-xl"
                   value={confirmEmail}
                   onChange={(e) => {
                     setConfirmEmail(e.target.value);
@@ -130,6 +132,7 @@ export default function SignUpForm({
                   id="displayName"
                   name="displayName"
                   placeholder="VanshAnand1"
+                  className="rounded-xl"
                   value={displayName}
                   onChange={(e) => {
                     setDisplayName(e.target.value);
@@ -143,6 +146,7 @@ export default function SignUpForm({
                   id="password"
                   name="password"
                   placeholder="*********"
+                  className="rounded-xl"
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -156,6 +160,7 @@ export default function SignUpForm({
                   id="confirmPassword"
                   name="confirmPassword"
                   placeholder="*********"
+                  className="rounded-xl"
                   value={confirmPassword}
                   onChange={(e) => {
                     setConfirmPassword(e.target.value);
