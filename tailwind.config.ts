@@ -18,11 +18,12 @@ export default {
         periwinkle: "#A7ABDD",
         navy: "#2B3A42",
         aquablue: "#2a7eff",
+        redwood: "B23A48",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
