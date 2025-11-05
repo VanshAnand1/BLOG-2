@@ -11,6 +11,9 @@ import {
   CardDescription,
   CardContent,
 } from "../ui/card";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 export default function SignUpForm({
   className,
@@ -23,7 +26,7 @@ export default function SignUpForm({
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
@@ -39,7 +42,80 @@ export default function SignUpForm({
           <CardDescription>Description</CardDescription>
         </CardHeader>
         <CardContent>
-          <form></form>
+          <form onSubmit={handleSignup}>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="name@email.com"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="confirmEmail">Confirm Email</Label>
+                <Input
+                  type="email"
+                  id="confirmEmail"
+                  name="confirmEmail"
+                  placeholder="name@email.com"
+                  value={confirmEmail}
+                  onChange={(e) => {
+                    setConfirmEmail(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="displayName">Display Name</Label>
+                <Input
+                  type="text"
+                  id="displayName"
+                  name="displayName"
+                  placeholder="VanshAnand1"
+                  value={displayName}
+                  onChange={(e) => {
+                    setDisplayName(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="*********"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="*********"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                  }}
+                />
+              </div>
+              <div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Signing up..." : "Sign up"}
+                </Button>
+              </div>
+            </div>
+          </form>
         </CardContent>
         <CardFooter>Footer</CardFooter>
       </Card>
