@@ -94,6 +94,19 @@ export default function SignUpForm({
     }
   };
 
+  useEffect(() => {
+    const handleClick = (event: UIEvent) => {
+      setCurrentField(null);
+    };
+    console.log(currentField);
+
+    window.addEventListener("click", handleClick);
+
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  });
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -117,6 +130,10 @@ export default function SignUpForm({
                     setEmail(e.target.value);
                   }}
                   required
+                  onClick={(e) => {
+                    setCurrentField("email");
+                    e.stopPropagation();
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -132,6 +149,10 @@ export default function SignUpForm({
                     setConfirmEmail(e.target.value);
                   }}
                   required
+                  onClick={(e) => {
+                    setCurrentField("confirmEmail");
+                    e.stopPropagation();
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -147,6 +168,10 @@ export default function SignUpForm({
                     setDisplayName(e.target.value);
                   }}
                   required
+                  onClick={(e) => {
+                    setCurrentField("displayName");
+                    e.stopPropagation();
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -162,6 +187,10 @@ export default function SignUpForm({
                     setPassword(e.target.value);
                   }}
                   required
+                  onClick={(e) => {
+                    setCurrentField("password");
+                    e.stopPropagation();
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -177,6 +206,10 @@ export default function SignUpForm({
                     setConfirmPassword(e.target.value);
                   }}
                   required
+                  onClick={(e) => {
+                    setCurrentField("confirmPassword");
+                    e.stopPropagation();
+                  }}
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -207,6 +240,7 @@ export default function SignUpForm({
           </div>
         </CardFooter>
       </Card>
+      {}
     </div>
   );
 }
