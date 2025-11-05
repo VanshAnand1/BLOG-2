@@ -22,7 +22,15 @@ export default function SignUpForm({
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignup = () => {};
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState("");
+
+  const router = useRouter();
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
