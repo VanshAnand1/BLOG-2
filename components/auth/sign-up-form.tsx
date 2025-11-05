@@ -179,11 +179,11 @@ export default function SignUpForm({
           </form>
         </CardContent>
         <CardFooter>
-          <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
+          <div className="w-full mt-4 text-center text-sm flex flex-col gap-2">
+            <div>Already have an account? </div>
             <Link
               href="/auth/login"
-              className="rounded-2xl bg-red-300 px-4 py-2 underline-offset-4 hover:underline"
+              className="rounded-2xl bg-red-300 hover:bg-red-200 px-4 py-2 underline-offset-4 hover:underline"
             >
               Login Instead
             </Link>
