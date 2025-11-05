@@ -15,7 +15,13 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { create } from "domain";
+
+type InputField =
+  | "email"
+  | "confirmEmail"
+  | "displayName"
+  | "password"
+  | "confirmPassword";
 
 export default function SignUpForm({
   className,
@@ -29,8 +35,9 @@ export default function SignUpForm({
 
   const [error, setError] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
-
   const router = useRouter();
+
+  const [currentField, setCurrentField] = useState<InputField | null>();
 
   const passwordsMatch = () => {
     return password === confirmPassword;
@@ -109,6 +116,7 @@ export default function SignUpForm({
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
+                  required
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -123,6 +131,7 @@ export default function SignUpForm({
                   onChange={(e) => {
                     setConfirmEmail(e.target.value);
                   }}
+                  required
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -137,6 +146,7 @@ export default function SignUpForm({
                   onChange={(e) => {
                     setDisplayName(e.target.value);
                   }}
+                  required
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -151,6 +161,7 @@ export default function SignUpForm({
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
+                  required
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -165,6 +176,7 @@ export default function SignUpForm({
                   onChange={(e) => {
                     setConfirmPassword(e.target.value);
                   }}
+                  required
                 />
               </div>
               <div className="flex flex-col gap-2">
