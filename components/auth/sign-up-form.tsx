@@ -14,6 +14,7 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function SignUpForm({
   className,
@@ -109,15 +110,25 @@ export default function SignUpForm({
                   }}
                 />
               </div>
-              <div>
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Signing up..." : "Sign up"}
-                </Button>
-              </div>
+
+              {error && <div className="text-sm text-red-500">{error}</div>}
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Signing up..." : "Sign up"}
+              </Button>
             </div>
           </form>
         </CardContent>
-        <CardFooter>Footer</CardFooter>
+        <CardFooter>
+          <div className="mt-4 text-center text-sm">
+            Already have an account?{" "}
+            <Link
+              href="/auth/login"
+              className="rounded-2xl bg-red-300 px-4 py-2 underline-offset-4 hover:underline"
+            >
+              Login Instead
+            </Link>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );
