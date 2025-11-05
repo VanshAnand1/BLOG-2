@@ -15,6 +15,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { create } from "domain";
 
 export default function SignUpForm({
   className,
@@ -35,6 +36,17 @@ export default function SignUpForm({
     return password === confirmPassword;
   };
 
+  const usernameIsUnique = async () => {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("display_name", displayName);
+
+    if (error) return false;
+    return data?.length === 0;
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
@@ -45,6 +57,37 @@ export default function SignUpForm({
       setError("Passwords do not match");
       setIsLoading(false);
       return;
+    }
+
+    if (!(await usernameIsUnique())) {
+      setError("Username is already taken");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { displayName },
+          emailRedirectTo: `${window.location.origin}/protected`,
+        },
+      });
+      if (error) {
+        setError(error.message ?? "An Unknown Supabase error has occured");
+        setIsLoading(false);
+        return;
+      }
+
+      // toast
+      router.push("/auth/sign-up-success");
+    } catch (error: unknown) {
+      setError(
+        error instanceof Error ? error.message : "An Unknown error has occured"
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
