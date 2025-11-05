@@ -1,4 +1,4 @@
-import Test from "@/components/is-mobile-test";
+import Test from "@/components/screen-size-test";
 import ThemeSwitcher from "@/components/theme-switcher";
 
 export default function Home() {
