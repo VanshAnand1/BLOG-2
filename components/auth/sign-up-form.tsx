@@ -16,6 +16,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { BadgeCheck, BadgeX } from "lucide-react";
+import { toast } from "sonner";
 
 type InputField =
   | "email"
@@ -283,6 +284,7 @@ export default function SignUpForm({
                     onClick={(e) => {
                       setCurrentField("confirmPassword");
                       e.stopPropagation();
+                      toast.success("hello");
                     }}
                   />
                 </div>
