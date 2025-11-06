@@ -144,6 +144,9 @@ export default function SignUpForm({
   };
 
   useEffect(() => {
+    if (currentField === undefined) {
+      setCurrentField(null);
+    }
     const handleClick = () => {
       setCurrentField(null);
     };
@@ -154,7 +157,7 @@ export default function SignUpForm({
     return () => {
       window.removeEventListener("click", handleClick);
     };
-  });
+  }, [currentField]);
 
   const checkEmailMatch = () => {
     if (!email && !confirmEmail) return false;
@@ -333,7 +336,7 @@ export default function SignUpForm({
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
                 )}
-                <p>Email is an email</p>
+                <p>Email entered is an email</p>
               </div>
             )}
             {(currentField === "confirmEmail" || currentField === null) && (
@@ -343,7 +346,7 @@ export default function SignUpForm({
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
                 )}
-                <p>Email matches confirm email</p>
+                <p>Confirm Email matches Email</p>
               </div>
             )}
             {(currentField === "displayName" || currentField === null) && (
@@ -371,7 +374,7 @@ export default function SignUpForm({
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
-                  <p>Display name must not contain profanity: </p>
+                  <p>Display name is valid: </p>
                   <button
                     className=" hover:underline text-black text-sm"
                     onClick={(e) => {
@@ -392,7 +395,7 @@ export default function SignUpForm({
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
-                  <p>Password should be at least 8 characters</p>
+                  <p>Password is at least 8 characters</p>
                 </div>
                 <div className="flex flex-row gap-2">
                   {passwordContainsLowerCase() ? (
@@ -427,7 +430,7 @@ export default function SignUpForm({
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
                 )}
-                <p>Password matches confirm password</p>
+                <p>Confirm Password matches Password</p>
               </div>
             )}
           </CardContent>
