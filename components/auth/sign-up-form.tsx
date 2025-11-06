@@ -39,9 +39,44 @@ export default function SignUpForm({
   const router = useRouter();
 
   const [currentField, setCurrentField] = useState<InputField | null>();
+  const [isUsernameUnique, setIsUsernameUnique] = useState(false);
 
   const passwordsMatch = () => {
     return password === confirmPassword;
+  };
+
+  const passwordLength = () => password.length >= 8;
+
+  const passwordContainsUpperCase = () => /[A-Z]/.test(password);
+
+  const passwordContainsLowerCase = () => /[a-z]/.test(password);
+
+  const passwordContainsNumber = () => /\d/.test(password);
+
+  const emailIsValid = () => /[@]/.test(email);
+
+  const passwordIsSecure = () => {
+    if (!passwordLength()) {
+      setError("Password must be at least 8 characters");
+      setIsLoading(false);
+      return false;
+    }
+    if (!passwordContainsUpperCase()) {
+      setError("Password must have at least one uppercase letter");
+      setIsLoading(false);
+      return false;
+    }
+    if (!passwordContainsLowerCase()) {
+      setError("Password must have at least one lowercase letter");
+      setIsLoading(false);
+      return false;
+    }
+    if (!passwordContainsNumber()) {
+      setError("Password must have at least one number");
+      setIsLoading(false);
+      return false;
+    }
+    return true;
   };
 
   const usernameIsUnique = async () => {
@@ -51,7 +86,11 @@ export default function SignUpForm({
       .select("display_name")
       .eq("display_name", displayName);
 
-    if (error) return false;
+    if (error) {
+      setIsUsernameUnique(false);
+      return false;
+    }
+    setIsUsernameUnique(data?.length === 0);
     return data?.length === 0;
   };
 
@@ -60,6 +99,10 @@ export default function SignUpForm({
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
+
+    if (!passwordIsSecure()) {
+      return;
+    }
 
     if (!passwordsMatch()) {
       setError("Passwords do not match");
@@ -114,7 +157,7 @@ export default function SignUpForm({
   };
 
   const checkPasswordLength = () => {
-    return password.length >= 6;
+    return password.length >= 8;
   };
 
   const checkPasswordMatch = () => {
@@ -188,6 +231,7 @@ export default function SignUpForm({
                     value={displayName}
                     onChange={(e) => {
                       setDisplayName(e.target.value);
+                      setIsUsernameUnique(false);
                     }}
                     required
                     onClick={(e) => {
@@ -270,30 +314,93 @@ export default function SignUpForm({
             <CardDescription>The remake</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-row gap-2">
-              {checkEmailMatch() ? (
-                <BadgeCheck className="text-green-400"></BadgeCheck>
-              ) : (
-                <BadgeX className="text-red-400"></BadgeX>
-              )}
-              <p>Email matches confirm email</p>
-            </div>
-            <div className="flex flex-row gap-2">
-              {checkPasswordLength() ? (
-                <BadgeCheck className="text-green-400"></BadgeCheck>
-              ) : (
-                <BadgeX className="text-red-400"></BadgeX>
-              )}
-              <p>Password should be at least 6 characters</p>
-            </div>
-            <div className="flex flex-row gap-2">
-              {checkPasswordMatch() ? (
-                <BadgeCheck className="text-green-400"></BadgeCheck>
-              ) : (
-                <BadgeX className="text-red-400"></BadgeX>
-              )}
-              <p>Password matches confirm password</p>
-            </div>
+            {(currentField === "email" || currentField === null) && (
+              <div className="flex flex-row gap-2">
+                {emailIsValid() ? (
+                  <BadgeCheck className="text-green-400"></BadgeCheck>
+                ) : (
+                  <BadgeX className="text-red-400"></BadgeX>
+                )}
+                <p>Email is an email</p>
+              </div>
+            )}
+            {(currentField === "confirmEmail" || currentField === null) && (
+              <div className="flex flex-row gap-2">
+                {checkEmailMatch() ? (
+                  <BadgeCheck className="text-green-400"></BadgeCheck>
+                ) : (
+                  <BadgeX className="text-red-400"></BadgeX>
+                )}
+                <p>Email matches confirm email</p>
+              </div>
+            )}
+            {(currentField === "displayName" || currentField === null) && (
+              <div>
+                <div className="flex flex-row gap-2">
+                  {isUsernameUnique ? (
+                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                  ) : (
+                    <BadgeX className="text-red-400"></BadgeX>
+                  )}
+                  <p>Display name must be unique: </p>
+                  <button
+                    className=" hover:underline text-black text-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      usernameIsUnique();
+                    }}
+                  >
+                    Check Username
+                  </button>
+                </div>
+              </div>
+            )}
+            {(currentField === "password" || currentField === null) && (
+              <div>
+                <div className="flex flex-row gap-2">
+                  {checkPasswordLength() ? (
+                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                  ) : (
+                    <BadgeX className="text-red-400"></BadgeX>
+                  )}
+                  <p>Password should be at least 8 characters</p>
+                </div>
+                <div className="flex flex-row gap-2">
+                  {passwordContainsLowerCase() ? (
+                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                  ) : (
+                    <BadgeX className="text-red-400"></BadgeX>
+                  )}
+                  <p>Password has at least one lowercase letter</p>
+                </div>
+                <div className="flex flex-row gap-2">
+                  {passwordContainsUpperCase() ? (
+                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                  ) : (
+                    <BadgeX className="text-red-400"></BadgeX>
+                  )}
+                  <p>Password has at least one uppercase letter</p>
+                </div>
+                <div className="flex flex-row gap-2">
+                  {passwordContainsNumber() ? (
+                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                  ) : (
+                    <BadgeX className="text-red-400"></BadgeX>
+                  )}
+                  <p>Password has at least one number</p>
+                </div>
+              </div>
+            )}
+            {(currentField === "confirmPassword" || currentField === null) && (
+              <div className="flex flex-row gap-2">
+                {checkPasswordMatch() ? (
+                  <BadgeCheck className="text-green-400"></BadgeCheck>
+                ) : (
+                  <BadgeX className="text-red-400"></BadgeX>
+                )}
+                <p>Password matches confirm password</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
