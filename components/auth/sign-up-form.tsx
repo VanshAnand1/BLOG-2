@@ -359,7 +359,7 @@ export default function SignUpForm({
                   )}
                   <p>Display name must be unique: </p>
                   <button
-                    className=" hover:underline text-black text-sm"
+                    className=" hover:underline text-black text-sm font-bold"
                     onClick={(e) => {
                       e.stopPropagation();
                       usernameIsUnique();
@@ -376,7 +376,7 @@ export default function SignUpForm({
                   )}
                   <p>Display name is valid: </p>
                   <button
-                    className=" hover:underline text-black text-sm"
+                    className=" hover:underline text-black text-sm font-bold"
                     onClick={(e) => {
                       e.stopPropagation();
                       checkUsernameProfanity();
