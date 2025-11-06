@@ -95,7 +95,7 @@ export default function SignUpForm({
   };
 
   useEffect(() => {
-    const handleClick = (event: UIEvent) => {
+    const handleClick = () => {
       setCurrentField(null);
     };
     console.log(currentField);
@@ -108,139 +108,147 @@ export default function SignUpForm({
   });
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Sign up</CardTitle>
-          <CardDescription>Create a new account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSignup}>
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="name@email.com"
-                  className="rounded-xl"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  required
-                  onClick={(e) => {
-                    setCurrentField("email");
-                    e.stopPropagation();
-                  }}
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="confirmEmail">Confirm Email</Label>
-                <Input
-                  type="email"
-                  id="confirmEmail"
-                  name="confirmEmail"
-                  placeholder="name@email.com"
-                  className="rounded-xl"
-                  value={confirmEmail}
-                  onChange={(e) => {
-                    setConfirmEmail(e.target.value);
-                  }}
-                  required
-                  onClick={(e) => {
-                    setCurrentField("confirmEmail");
-                    e.stopPropagation();
-                  }}
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="displayName">Display Name</Label>
-                <Input
-                  type="text"
-                  id="displayName"
-                  name="displayName"
-                  placeholder="VanshAnand1"
-                  className="rounded-xl"
-                  value={displayName}
-                  onChange={(e) => {
-                    setDisplayName(e.target.value);
-                  }}
-                  required
-                  onClick={(e) => {
-                    setCurrentField("displayName");
-                    e.stopPropagation();
-                  }}
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="*********"
-                  className="rounded-xl"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  required
-                  onClick={(e) => {
-                    setCurrentField("password");
-                    e.stopPropagation();
-                  }}
-                />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="*********"
-                  className="rounded-xl"
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                  }}
-                  required
-                  onClick={(e) => {
-                    setCurrentField("confirmPassword");
-                    e.stopPropagation();
-                  }}
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <div
-                  className={`text-sm text-red-500 ${
-                    error ? `opacity-100 visible` : `opacity-0 invisible`
-                  }`}
-                >
-                  {error ? error : "An unexpected error occured"}
+    <div
+      className={cn(
+        "mx-auto flex w-full flex-col gap-8 lg:max-w-5xl lg:flex-row",
+        className
+      )}
+      {...props}
+    >
+      <div className="flex w-full flex-1 flex-col gap-6">
+        <Card className="h-full w-full">
+          <CardHeader>
+            <CardTitle>Sign up</CardTitle>
+            <CardDescription>Create a new account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSignup}>
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="name@email.com"
+                    className="rounded-xl"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                    required
+                    onClick={(e) => {
+                      setCurrentField("email");
+                      e.stopPropagation();
+                    }}
+                  />
                 </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="confirmEmail">Confirm Email</Label>
+                  <Input
+                    type="email"
+                    id="confirmEmail"
+                    name="confirmEmail"
+                    placeholder="name@email.com"
+                    className="rounded-xl"
+                    value={confirmEmail}
+                    onChange={(e) => {
+                      setConfirmEmail(e.target.value);
+                    }}
+                    required
+                    onClick={(e) => {
+                      setCurrentField("confirmEmail");
+                      e.stopPropagation();
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="displayName">Display Name</Label>
+                  <Input
+                    type="text"
+                    id="displayName"
+                    name="displayName"
+                    placeholder="VanshAnand1"
+                    className="rounded-xl"
+                    value={displayName}
+                    onChange={(e) => {
+                      setDisplayName(e.target.value);
+                    }}
+                    required
+                    onClick={(e) => {
+                      setCurrentField("displayName");
+                      e.stopPropagation();
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="*********"
+                    className="rounded-xl"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                    required
+                    onClick={(e) => {
+                      setCurrentField("password");
+                      e.stopPropagation();
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="confirmPassword">Confirm Password</Label>
+                  <Input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    placeholder="*********"
+                    className="rounded-xl"
+                    value={confirmPassword}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
+                    required
+                    onClick={(e) => {
+                      setCurrentField("confirmPassword");
+                      e.stopPropagation();
+                    }}
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div
+                    className={`text-sm text-red-500 ${
+                      error ? `opacity-100 visible` : `opacity-0 invisible`
+                    }`}
+                  >
+                    {error ? error : "An unexpected error occured"}
+                  </div>
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? "Signing up..." : "Sign up"}
-                </Button>
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? "Signing up..." : "Sign up"}
+                  </Button>
+                </div>
               </div>
+            </form>
+          </CardContent>
+          <CardFooter>
+            <div className="w-full mt-4 text-center text-sm flex flex-col gap-2">
+              <div>Already have an account? </div>
+              <Link
+                href="/auth/login"
+                className="rounded-2xl bg-red-300 hover:bg-red-200 px-4 py-2 underline-offset-4 hover:underline"
+              >
+                Login Instead
+              </Link>
             </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <div className="w-full mt-4 text-center text-sm flex flex-col gap-2">
-            <div>Already have an account? </div>
-            <Link
-              href="/auth/login"
-              className="rounded-2xl bg-red-300 hover:bg-red-200 px-4 py-2 underline-offset-4 hover:underline"
-            >
-              Login Instead
-            </Link>
-          </div>
-        </CardFooter>
-      </Card>
-      {}
+          </CardFooter>
+        </Card>
+      </div>
+      <div className="hidden w-full flex-1 lg:flex">BLOG-2</div>
     </div>
   );
 }
