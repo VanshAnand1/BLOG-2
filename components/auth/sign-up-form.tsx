@@ -40,6 +40,7 @@ export default function SignUpForm({
 
   const [currentField, setCurrentField] = useState<InputField | null>();
   const [isUsernameUnique, setIsUsernameUnique] = useState(false);
+  const [isUsernameProfanity, setIsUsernameProfanity] = useState(false);
 
   const passwordsMatch = () => {
     return password === confirmPassword;
@@ -92,6 +93,10 @@ export default function SignUpForm({
     }
     setIsUsernameUnique(data?.length === 0);
     return data?.length === 0;
+  };
+
+  const checkUsernameProfanity = () => {
+    return false;
   };
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -310,14 +315,21 @@ export default function SignUpForm({
       <div className="hidden w-full flex-1 lg:flex">
         <Card className="h-full w-full">
           <CardHeader>
-            <CardTitle>BLOG-2</CardTitle>
-            <CardDescription>The remake</CardDescription>
+            <CardTitle className="flex justify-between items-center">
+              <div>BLOG-2</div>
+              <Button onClick={() => setCurrentField(null)}>
+                Show all signup requirements
+              </Button>
+            </CardTitle>
+            <CardDescription>
+              The following are required to create a new account
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {(currentField === "email" || currentField === null) && (
               <div className="flex flex-row gap-2">
                 {emailIsValid() ? (
-                  <BadgeCheck className="text-green-400"></BadgeCheck>
+                  <BadgeCheck className="text-green-800"></BadgeCheck>
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
                 )}
@@ -327,7 +339,7 @@ export default function SignUpForm({
             {(currentField === "confirmEmail" || currentField === null) && (
               <div className="flex flex-row gap-2">
                 {checkEmailMatch() ? (
-                  <BadgeCheck className="text-green-400"></BadgeCheck>
+                  <BadgeCheck className="text-green-800"></BadgeCheck>
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
                 )}
@@ -338,7 +350,7 @@ export default function SignUpForm({
               <div>
                 <div className="flex flex-row gap-2">
                   {isUsernameUnique ? (
-                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                    <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
@@ -353,13 +365,30 @@ export default function SignUpForm({
                     Check Username
                   </button>
                 </div>
+                <div className="flex flex-row gap-2">
+                  {isUsernameUnique ? (
+                    <BadgeCheck className="text-green-800"></BadgeCheck>
+                  ) : (
+                    <BadgeX className="text-red-400"></BadgeX>
+                  )}
+                  <p>Display name must not contain profanity: </p>
+                  <button
+                    className=" hover:underline text-black text-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      checkUsernameProfanity();
+                    }}
+                  >
+                    Check Username
+                  </button>
+                </div>
               </div>
             )}
             {(currentField === "password" || currentField === null) && (
               <div>
                 <div className="flex flex-row gap-2">
                   {checkPasswordLength() ? (
-                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                    <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
@@ -367,7 +396,7 @@ export default function SignUpForm({
                 </div>
                 <div className="flex flex-row gap-2">
                   {passwordContainsLowerCase() ? (
-                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                    <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
@@ -375,7 +404,7 @@ export default function SignUpForm({
                 </div>
                 <div className="flex flex-row gap-2">
                   {passwordContainsUpperCase() ? (
-                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                    <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
@@ -383,7 +412,7 @@ export default function SignUpForm({
                 </div>
                 <div className="flex flex-row gap-2">
                   {passwordContainsNumber() ? (
-                    <BadgeCheck className="text-green-400"></BadgeCheck>
+                    <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
@@ -394,7 +423,7 @@ export default function SignUpForm({
             {(currentField === "confirmPassword" || currentField === null) && (
               <div className="flex flex-row gap-2">
                 {checkPasswordMatch() ? (
-                  <BadgeCheck className="text-green-400"></BadgeCheck>
+                  <BadgeCheck className="text-green-800"></BadgeCheck>
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
                 )}
