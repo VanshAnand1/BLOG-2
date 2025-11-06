@@ -15,6 +15,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { BadgeCheck, BadgeX } from "lucide-react";
 
 type InputField =
   | "email"
@@ -106,6 +107,20 @@ export default function SignUpForm({
       window.removeEventListener("click", handleClick);
     };
   });
+
+  const checkEmailMatch = () => {
+    if (!email && !confirmEmail) return false;
+    return email === confirmEmail;
+  };
+
+  const checkPasswordLength = () => {
+    return password.length >= 6;
+  };
+
+  const checkPasswordMatch = () => {
+    if (!password && !confirmPassword) return false;
+    return password === confirmPassword;
+  };
 
   return (
     <div
@@ -248,7 +263,40 @@ export default function SignUpForm({
           </CardFooter>
         </Card>
       </div>
-      <div className="hidden w-full flex-1 lg:flex">BLOG-2</div>
+      <div className="hidden w-full flex-1 lg:flex">
+        <Card className="h-full w-full">
+          <CardHeader>
+            <CardTitle>BLOG-2</CardTitle>
+            <CardDescription>The remake</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-row gap-2">
+              {checkEmailMatch() ? (
+                <BadgeCheck className="text-green-400"></BadgeCheck>
+              ) : (
+                <BadgeX className="text-red-400"></BadgeX>
+              )}
+              <p>Email matches confirm email</p>
+            </div>
+            <div className="flex flex-row gap-2">
+              {checkPasswordLength() ? (
+                <BadgeCheck className="text-green-400"></BadgeCheck>
+              ) : (
+                <BadgeX className="text-red-400"></BadgeX>
+              )}
+              <p>Password should be at least 6 characters</p>
+            </div>
+            <div className="flex flex-row gap-2">
+              {checkPasswordMatch() ? (
+                <BadgeCheck className="text-green-400"></BadgeCheck>
+              ) : (
+                <BadgeX className="text-red-400"></BadgeX>
+              )}
+              <p>Password matches confirm password</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
