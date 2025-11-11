@@ -19,7 +19,7 @@ import { BadgeCheck, BadgeX, BadgeQuestionMark } from "lucide-react";
 import { toast } from "sonner";
 import { IsProfanitySafe } from "@/lib/helpers/profanity";
 
-type InputField =
+export type InputField =
   | "email"
   | "confirmEmail"
   | "displayName"
