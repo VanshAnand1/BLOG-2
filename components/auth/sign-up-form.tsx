@@ -15,8 +15,9 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { BadgeCheck, BadgeX } from "lucide-react";
+import { BadgeCheck, BadgeX, BadgeQuestionMark } from "lucide-react";
 import { toast } from "sonner";
+import { IsProfanitySafe } from "@/lib/helpers/profanity";
 
 type InputField =
   | "email"
@@ -97,7 +98,7 @@ export default function SignUpForm({
   };
 
   const checkUsernameProfanity = () => {
-    return false;
+    setIsUsernameProfanity(!IsProfanitySafe(displayName));
   };
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -371,7 +372,7 @@ export default function SignUpForm({
                   </button>
                 </div>
                 <div className="flex flex-row gap-2">
-                  {isUsernameUnique ? (
+                  {isUsernameProfanity ? (
                     <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
