@@ -166,10 +166,6 @@ export default function SignUpForm({
     return email === confirmEmail;
   };
 
-  const checkPasswordLength = () => {
-    return password.length >= 8;
-  };
-
   const checkPasswordMatch = () => {
     if (!password && !confirmPassword) return false;
     return password === confirmPassword;
@@ -377,7 +373,7 @@ export default function SignUpForm({
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
                   )}
-                  <p>Display name is valid: </p>
+                  <p>Display name is profanity free: </p>
                   <button
                     className=" hover:underline text-black text-sm font-bold"
                     onClick={(e) => {
@@ -393,7 +389,7 @@ export default function SignUpForm({
             {(currentField === "password" || currentField === null) && (
               <div>
                 <div className="flex flex-row gap-2">
-                  {checkPasswordLength() ? (
+                  {passwordLength() ? (
                     <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
