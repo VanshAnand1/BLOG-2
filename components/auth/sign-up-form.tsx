@@ -44,19 +44,14 @@ export default function SignUpForm({
   const [isUsernameUnique, setIsUsernameUnique] = useState(false);
   const [isUsernameProfanity, setIsUsernameProfanity] = useState(false);
 
-  const passwordsMatch = () => {
-    return password === confirmPassword;
-  };
-
+  const passwordsMatch = () => password === confirmPassword;
   const passwordLength = () => password.length >= 8;
-
   const passwordContainsUpperCase = () => /[A-Z]/.test(password);
-
   const passwordContainsLowerCase = () => /[a-z]/.test(password);
-
   const passwordContainsNumber = () => /\d/.test(password);
-
   const emailIsValid = () => /[@]/.test(email);
+  const checkUsernameProfanity = () =>
+    setIsUsernameProfanity(!IsProfanitySafe(displayName));
 
   const passwordIsSecure = () => {
     if (!passwordLength()) {
@@ -97,8 +92,14 @@ export default function SignUpForm({
     return data?.length === 0;
   };
 
-  const checkUsernameProfanity = () => {
-    setIsUsernameProfanity(!IsProfanitySafe(displayName));
+  const checkEmailMatch = () => {
+    if (!email && !confirmEmail) return false;
+    return email === confirmEmail;
+  };
+
+  const checkPasswordMatch = () => {
+    if (!password && !confirmPassword) return false;
+    return password === confirmPassword;
   };
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -160,16 +161,6 @@ export default function SignUpForm({
       window.removeEventListener("click", handleClick);
     };
   }, [currentField]);
-
-  const checkEmailMatch = () => {
-    if (!email && !confirmEmail) return false;
-    return email === confirmEmail;
-  };
-
-  const checkPasswordMatch = () => {
-    if (!password && !confirmPassword) return false;
-    return password === confirmPassword;
-  };
 
   return (
     <div
