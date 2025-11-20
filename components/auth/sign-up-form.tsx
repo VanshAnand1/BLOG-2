@@ -135,12 +135,13 @@ export default function SignUpForm({
       });
       if (error) throw error;
 
-      // toast
-      router.push("/auth/sign-up-success");
+      toast.success("Signup was successful! Verify your email to log in.");
+      router.push("/auth/signup-success");
     } catch (error: unknown) {
       setError(
         error instanceof Error ? error.message : "An Unknown error has occured"
       );
+      toast.error("Signup failed");
     } finally {
       setIsLoading(false);
     }
@@ -272,7 +273,6 @@ export default function SignUpForm({
                     onClick={(e) => {
                       setCurrentField("confirmPassword");
                       e.stopPropagation();
-                      toast.success("hello");
                     }}
                   />
                 </div>
