@@ -14,7 +14,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function ForgotPasswordForm({
