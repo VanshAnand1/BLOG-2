@@ -12,10 +12,10 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { isPasswordSecure } from "@/lib/helpers/password";
 
 export default function UpdatePasswordForm({
   className,
@@ -27,17 +27,15 @@ export default function UpdatePasswordForm({
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const passwordsMatch = () => password === confirmPassword;
-
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
     const supabase = createClient();
 
-    if (!passwordsMatch()) {
-      setError("Passwords do not match");
-      toast.error("Passwords do not match");
+    if (!isPasswordSecure(password, confirmPassword)) {
+      setError("Password does not meet criteria");
+      toast.error("Password does not meet criteria");
       setIsLoading(false);
       return;
     }
