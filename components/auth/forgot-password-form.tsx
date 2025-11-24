@@ -87,7 +87,13 @@ export default function ForgotPasswordForm({
             </div>
           </CardContent>
           <CardFooter>
-            <Link href="/auth/forgot-password" className="hover:underline">
+            <Link
+              href="/auth/forgot-password"
+              className="hover:underline"
+              onClick={() => {
+                setEmail("");
+              }}
+            >
               <span className="font-bold">Entered the wrong email?</span> Click
               me to go back
             </Link>

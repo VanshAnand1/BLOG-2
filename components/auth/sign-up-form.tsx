@@ -18,6 +18,14 @@ import Link from "next/link";
 import { BadgeCheck, BadgeX, BadgeQuestionMark } from "lucide-react";
 import { toast } from "sonner";
 import { IsProfanitySafe } from "@/lib/helpers/profanity";
+import {
+  isPasswordSecure,
+  passwordsMatch,
+  passwordLength,
+  passwordContainsLowerCase,
+  passwordContainsNumber,
+  passwordContainsUpperCase,
+} from "@/lib/helpers/password";
 
 export type InputField =
   | "email"
@@ -44,38 +52,9 @@ export default function SignUpForm({
   const [isUsernameUnique, setIsUsernameUnique] = useState(false);
   const [isUsernameProfanity, setIsUsernameProfanity] = useState(false);
 
-  const passwordsMatch = () => password === confirmPassword;
-  const passwordLength = () => password.length >= 8;
-  const passwordContainsUpperCase = () => /[A-Z]/.test(password);
-  const passwordContainsLowerCase = () => /[a-z]/.test(password);
-  const passwordContainsNumber = () => /\d/.test(password);
   const emailIsValid = () => /[@]/.test(email);
   const checkUsernameProfanity = () =>
     setIsUsernameProfanity(!IsProfanitySafe(displayName));
-
-  const passwordIsSecure = () => {
-    if (!passwordLength()) {
-      setError("Password must be at least 8 characters");
-      setIsLoading(false);
-      return false;
-    }
-    if (!passwordContainsUpperCase()) {
-      setError("Password must have at least one uppercase letter");
-      setIsLoading(false);
-      return false;
-    }
-    if (!passwordContainsLowerCase()) {
-      setError("Password must have at least one lowercase letter");
-      setIsLoading(false);
-      return false;
-    }
-    if (!passwordContainsNumber()) {
-      setError("Password must have at least one number");
-      setIsLoading(false);
-      return false;
-    }
-    return true;
-  };
 
   const usernameIsUnique = async () => {
     const supabase = createClient();
@@ -97,22 +76,17 @@ export default function SignUpForm({
     return email === confirmEmail;
   };
 
-  const checkPasswordMatch = () => {
-    if (!password && !confirmPassword) return false;
-    return password === confirmPassword;
-  };
-
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
     setError(null);
 
-    if (!passwordIsSecure()) {
+    if (!isPasswordSecure(password, confirmPassword)) {
       return;
     }
 
-    if (!passwordsMatch()) {
+    if (!passwordsMatch(password, confirmPassword)) {
       setError("Passwords do not match");
       setIsLoading(false);
       return;
@@ -380,7 +354,7 @@ export default function SignUpForm({
             {(currentField === "password" || currentField === null) && (
               <div>
                 <div className="flex flex-row gap-2">
-                  {passwordLength() ? (
+                  {passwordLength(password) ? (
                     <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
@@ -388,7 +362,7 @@ export default function SignUpForm({
                   <p>Password is at least 8 characters</p>
                 </div>
                 <div className="flex flex-row gap-2">
-                  {passwordContainsLowerCase() ? (
+                  {passwordContainsLowerCase(password) ? (
                     <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
@@ -396,7 +370,7 @@ export default function SignUpForm({
                   <p>Password has at least one lowercase letter</p>
                 </div>
                 <div className="flex flex-row gap-2">
-                  {passwordContainsUpperCase() ? (
+                  {passwordContainsUpperCase(password) ? (
                     <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
@@ -404,7 +378,7 @@ export default function SignUpForm({
                   <p>Password has at least one uppercase letter</p>
                 </div>
                 <div className="flex flex-row gap-2">
-                  {passwordContainsNumber() ? (
+                  {passwordContainsNumber(password) ? (
                     <BadgeCheck className="text-green-800"></BadgeCheck>
                   ) : (
                     <BadgeX className="text-red-400"></BadgeX>
@@ -415,7 +389,7 @@ export default function SignUpForm({
             )}
             {(currentField === "confirmPassword" || currentField === null) && (
               <div className="flex flex-row gap-2">
-                {checkPasswordMatch() ? (
+                {passwordsMatch(password, confirmPassword) ? (
                   <BadgeCheck className="text-green-800"></BadgeCheck>
                 ) : (
                   <BadgeX className="text-red-400"></BadgeX>
