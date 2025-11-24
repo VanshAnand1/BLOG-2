@@ -90,7 +90,16 @@ export default function LoginForm({
                 />
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="password">Password</Label>
+                <div className="flex items-center">
+                  <Label htmlFor="password">Password</Label>
+
+                  <Link
+                    href="/auth/forgot-password"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
                 <Input
                   type="password"
                   id="password"
