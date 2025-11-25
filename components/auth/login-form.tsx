@@ -41,7 +41,7 @@ export default function LoginForm({
       });
       if (error) throw error;
       toast.success("Login was successful!");
-      router.push("/posts");
+      router.push("/");
     } catch (error: unknown) {
       setError(
         error instanceof Error ? error.message : "An unknown error has occured"
