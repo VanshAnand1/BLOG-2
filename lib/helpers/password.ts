@@ -9,7 +9,7 @@ export function isPasswordSecure(password: string, confirmPassword: string) {
 }
 
 export const passwordsMatch = (password: string, confirmPassword: string) =>
-  password === confirmPassword;
+  password === confirmPassword && password != "";
 export const passwordLength = (password: string) => password.length >= 8;
 export const passwordContainsUpperCase = (password: string) =>
   /[A-Z]/.test(password);
