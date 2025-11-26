@@ -292,7 +292,29 @@ export default function SignUpForm({
               The following are required to create a new account
             </CardDescription>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-3">
+                <p>Email is a valid email</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p>Confirm Email matches email</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p>Display Name is available</p>
+                <p>Display Name is Valid</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p>Password is at least 8 characters long</p>
+                <p>Password contains uppercase letter</p>
+                <p>Password contains lowercase letter</p>
+                <p>Password contains number</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <p>Confirm Password matches password</p>
+              </div>
+            </div>
+          </CardContent>
         </Card>
       </div>
     </div>
