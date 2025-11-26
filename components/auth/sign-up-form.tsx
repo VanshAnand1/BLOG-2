@@ -305,13 +305,40 @@ export default function SignUpForm({
                 <p>Display Name is Valid</p>
               </div>
               <div className="flex flex-col gap-3">
-                <p>Password is at least 8 characters long</p>
-                <p>Password contains uppercase letter</p>
-                <p>Password contains lowercase letter</p>
-                <p>Password contains number</p>
+                <div className="flex gap-5">
+                  {passwordLength(password) ? <Check></Check> : <X></X>}
+                  <p>Password is at least 8 characters long</p>
+                </div>
+                <div className="flex gap-5">
+                  {passwordContainsUpperCase(password) ? (
+                    <Check></Check>
+                  ) : (
+                    <X></X>
+                  )}
+                  <p>Password contains uppercase letter</p>
+                </div>
+                <div className="flex gap-5">
+                  {passwordContainsLowerCase(password) ? (
+                    <Check></Check>
+                  ) : (
+                    <X></X>
+                  )}
+                  <p>Password contains lowercase letter</p>
+                </div>
+                <div className="flex gap-5">
+                  {passwordContainsNumber(password) ? <Check></Check> : <X></X>}
+                  <p>Password contains number</p>
+                </div>
               </div>
               <div className="flex flex-col gap-3">
-                <p>Confirm Password matches password</p>
+                <div className="flex gap-5">
+                  {passwordsMatch(password, confirmPassword) ? (
+                    <Check></Check>
+                  ) : (
+                    <X></X>
+                  )}
+                  <p>Confirm Password matches password</p>
+                </div>
               </div>
             </div>
           </CardContent>
