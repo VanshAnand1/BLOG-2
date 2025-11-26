@@ -15,7 +15,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { BadgeCheck, BadgeX, BadgeQuestionMark } from "lucide-react";
+import { X, Check, QuestionMark } from "../ui/lucide-icons";
 import { toast } from "sonner";
 import { IsProfanitySafe } from "@/lib/helpers/profanity";
 import {
@@ -292,112 +292,7 @@ export default function SignUpForm({
               The following are required to create a new account
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            {(currentField === "email" || currentField === null) && (
-              <div className="flex flex-row gap-2">
-                {emailIsValid() ? (
-                  <BadgeCheck className="text-green-800"></BadgeCheck>
-                ) : (
-                  <BadgeX className="text-red-400"></BadgeX>
-                )}
-                <p>Email entered is an email</p>
-              </div>
-            )}
-            {(currentField === "confirmEmail" || currentField === null) && (
-              <div className="flex flex-row gap-2">
-                {checkEmailMatch() ? (
-                  <BadgeCheck className="text-green-800"></BadgeCheck>
-                ) : (
-                  <BadgeX className="text-red-400"></BadgeX>
-                )}
-                <p>Confirm Email matches Email</p>
-              </div>
-            )}
-            {(currentField === "displayName" || currentField === null) && (
-              <div>
-                <div className="flex flex-row gap-2">
-                  {isUsernameUnique ? (
-                    <BadgeCheck className="text-green-800"></BadgeCheck>
-                  ) : (
-                    <BadgeX className="text-red-400"></BadgeX>
-                  )}
-                  <p>Display name must be unique: </p>
-                  <button
-                    className=" hover:underline text-black text-sm font-bold"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      usernameIsUnique();
-                    }}
-                  >
-                    Check Username
-                  </button>
-                </div>
-                <div className="flex flex-row gap-2">
-                  {isUsernameProfanity ? (
-                    <BadgeCheck className="text-green-800"></BadgeCheck>
-                  ) : (
-                    <BadgeX className="text-red-400"></BadgeX>
-                  )}
-                  <p>Display name is profanity free: </p>
-                  <button
-                    className=" hover:underline text-black text-sm font-bold"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      checkUsernameProfanity();
-                    }}
-                  >
-                    Check Username
-                  </button>
-                </div>
-              </div>
-            )}
-            {(currentField === "password" || currentField === null) && (
-              <div>
-                <div className="flex flex-row gap-2">
-                  {passwordLength(password) ? (
-                    <BadgeCheck className="text-green-800"></BadgeCheck>
-                  ) : (
-                    <BadgeX className="text-red-400"></BadgeX>
-                  )}
-                  <p>Password is at least 8 characters</p>
-                </div>
-                <div className="flex flex-row gap-2">
-                  {passwordContainsLowerCase(password) ? (
-                    <BadgeCheck className="text-green-800"></BadgeCheck>
-                  ) : (
-                    <BadgeX className="text-red-400"></BadgeX>
-                  )}
-                  <p>Password has at least one lowercase letter</p>
-                </div>
-                <div className="flex flex-row gap-2">
-                  {passwordContainsUpperCase(password) ? (
-                    <BadgeCheck className="text-green-800"></BadgeCheck>
-                  ) : (
-                    <BadgeX className="text-red-400"></BadgeX>
-                  )}
-                  <p>Password has at least one uppercase letter</p>
-                </div>
-                <div className="flex flex-row gap-2">
-                  {passwordContainsNumber(password) ? (
-                    <BadgeCheck className="text-green-800"></BadgeCheck>
-                  ) : (
-                    <BadgeX className="text-red-400"></BadgeX>
-                  )}
-                  <p>Password has at least one number</p>
-                </div>
-              </div>
-            )}
-            {(currentField === "confirmPassword" || currentField === null) && (
-              <div className="flex flex-row gap-2">
-                {passwordsMatch(password, confirmPassword) ? (
-                  <BadgeCheck className="text-green-800"></BadgeCheck>
-                ) : (
-                  <BadgeX className="text-red-400"></BadgeX>
-                )}
-                <p>Confirm Password matches Password</p>
-              </div>
-            )}
-          </CardContent>
+          <CardContent></CardContent>
         </Card>
       </div>
     </div>
