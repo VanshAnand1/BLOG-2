@@ -28,6 +28,7 @@ import {
   emailIsValid,
   displayNameMaxLength,
   displayNameLength,
+  displayNameDoesNotContainSpaces,
 } from "@/lib/helpers/sign-up-requirements";
 
 export type InputField =
@@ -103,20 +104,44 @@ export default function SignUpForm({
     setIsLoading(true);
     setError(null);
 
-    if (!IsProfanitySafe(displayName)) {
-      setError("Display name contains inappropriate language");
+    if (!displayNameLength(displayName)) {
+      setError("Display Name is too long");
       setIsLoading(false);
       return;
     }
 
-    if (!isPasswordSecure(password, confirmPassword)) {
-      setError("Password does not meet requirements");
+    if (!displayNameDoesNotContainSpaces(displayName)) {
+      setError("Display Name must not contain spaces");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!IsProfanitySafe(displayName)) {
+      setError("Display Name contains inappropriate language");
       setIsLoading(false);
       return;
     }
 
     if (!usernameIsUnique) {
-      setError("Username is already taken");
+      setError("Display Name is already taken");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!isPasswordSecure(password)) {
+      setError("Password does not meet requirements");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!inputsMatch(password, confirmPassword)) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!inputsMatch(email, confirmEmail)) {
+      setError("Emails do not match");
       setIsLoading(false);
       return;
     }
@@ -221,7 +246,7 @@ export default function SignUpForm({
                     type="text"
                     id="displayName"
                     name="displayName"
-                    placeholder="VanshAnand1"
+                    placeholder="JohnnyAppleseed12"
                     className="rounded-xl"
                     value={displayName}
                     onChange={(e) => {
@@ -376,10 +401,30 @@ export default function SignUpForm({
                   <p>Display Name is profanity free</p>
                 </div>
                 <div className="flex gap-5">
-                  {displayNameLength(displayName) ? <Check></Check> : <X></X>}
+                  {displayName ? (
+                    displayNameLength(displayName) ? (
+                      <Check></Check>
+                    ) : (
+                      <X></X>
+                    )
+                  ) : (
+                    <QuestionMark></QuestionMark>
+                  )}
                   <p>
                     Display Name is under {displayNameMaxLength} characters long
                   </p>
+                </div>
+                <div className="flex gap-5">
+                  {displayName ? (
+                    displayNameDoesNotContainSpaces(displayName) ? (
+                      <Check></Check>
+                    ) : (
+                      <X></X>
+                    )
+                  ) : (
+                    <QuestionMark></QuestionMark>
+                  )}
+                  <p>Display Name does not contain spaces</p>
                 </div>
               </div>
               <div

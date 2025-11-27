@@ -8,13 +8,12 @@ export const passwordContainsLowerCase = (password: string) =>
   /[a-z]/.test(password);
 export const passwordContainsNumber = (password: string) => /\d/.test(password);
 
-export function isPasswordSecure(password: string, confirmPassword: string) {
+export function isPasswordSecure(password: string) {
   return (
     passwordLength(password) &&
     passwordContainsUpperCase(password) &&
     passwordContainsLowerCase(password) &&
-    passwordContainsNumber(password) &&
-    inputsMatch(password, confirmPassword)
+    passwordContainsNumber(password)
   );
 }
 
@@ -34,3 +33,5 @@ export function emailIsValid(email: string) {
 export const displayNameMaxLength = 20;
 export const displayNameLength = (displayName: string) =>
   displayName.length <= displayNameMaxLength;
+export const displayNameDoesNotContainSpaces = (displayName: string) =>
+  displayName === displayName.trim();
