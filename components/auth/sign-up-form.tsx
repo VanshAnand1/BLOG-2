@@ -26,6 +26,8 @@ import {
   passwordContainsNumber,
   passwordContainsUpperCase,
   emailIsValid,
+  displayNameMaxLength,
+  displayNameLength,
 } from "@/lib/helpers/sign-up-requirements";
 
 export type InputField =
@@ -50,9 +52,11 @@ export default function SignUpForm({
   const [debounce, setDebounce] = useState("");
   const router = useRouter();
 
-  const [currentField, setCurrentField] = useState<InputField | null>();
   const [usernameIsUnique, setUsernameIsUnique] = useState(false);
   const [usernameIsValid, setUsernameIsValid] = useState(false);
+
+  const [currentField, setCurrentField] = useState<InputField | null>();
+  const isActive = (field: string) => field === currentField;
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -302,9 +306,9 @@ export default function SignUpForm({
           <CardHeader>
             <CardTitle className="flex justify-between items-center">
               <div>BLOG-2</div>
-              <Button onClick={() => setCurrentField(null)}>
-                Show all signup requirements
-              </Button>
+              {/* <Button onClick={() => setCurrentField(null)}>
+                Remove Focus
+              </Button> */}
             </CardTitle>
             <CardDescription>
               The following are required to create a new account
@@ -312,19 +316,40 @@ export default function SignUpForm({
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-3">
+              <div
+                className={cn(
+                  "flex flex-col gap-3 py-2 px-4 rounded-2xl",
+                  isActive("email")
+                    ? "bg-blue-200 dark:bg-blue-700 scale-[1.02] shadow-md"
+                    : "bg-neutral-100 dark:bg-neutral-600 opacity-80 "
+                )}
+              >
                 <div className="flex gap-5">
                   {emailIsValid(email) ? <Check></Check> : <X></X>}
                   <p>Email is a valid email</p>
                 </div>
               </div>
-              <div className="flex flex-col gap-3">
+              <div
+                className={cn(
+                  "flex flex-col gap-3 py-2 px-4 rounded-2xl",
+                  isActive("confirmEmail")
+                    ? "bg-blue-200 dark:bg-blue-700 scale-[1.02] shadow-md"
+                    : "bg-neutral-100 dark:bg-neutral-600 opacity-80 "
+                )}
+              >
                 <div className="flex gap-5">
                   {inputsMatch(email, confirmEmail) ? <Check></Check> : <X></X>}
                   <p>Confirm Email matches email</p>
                 </div>
               </div>
-              <div className="flex flex-col gap-3">
+              <div
+                className={cn(
+                  "flex flex-col gap-3 py-2 px-4 rounded-2xl",
+                  isActive("displayName")
+                    ? "bg-blue-200 dark:bg-blue-700 scale-[1.02] shadow-md"
+                    : "bg-neutral-100 dark:bg-neutral-600 opacity-80 "
+                )}
+              >
                 <div className="flex gap-5">
                   {debounce ? (
                     usernameIsUnique ? (
@@ -348,10 +373,23 @@ export default function SignUpForm({
                   ) : (
                     <QuestionMark></QuestionMark>
                   )}
-                  <p>Display Name is valid</p>
+                  <p>Display Name is profanity free</p>
+                </div>
+                <div className="flex gap-5">
+                  {displayNameLength(displayName) ? <Check></Check> : <X></X>}
+                  <p>
+                    Display Name is under {displayNameMaxLength} characters long
+                  </p>
                 </div>
               </div>
-              <div className="flex flex-col gap-3">
+              <div
+                className={cn(
+                  "flex flex-col gap-3 py-2 px-4 rounded-2xl",
+                  isActive("password")
+                    ? "bg-blue-200 dark:bg-blue-700 scale-[1.02] shadow-md"
+                    : "bg-neutral-100 dark:bg-neutral-600 opacity-80 "
+                )}
+              >
                 <div className="flex gap-5">
                   {passwordLength(password) ? <Check></Check> : <X></X>}
                   <p>Password is at least 8 characters long</p>
@@ -377,7 +415,14 @@ export default function SignUpForm({
                   <p>Password contains number</p>
                 </div>
               </div>
-              <div className="flex flex-col gap-3">
+              <div
+                className={cn(
+                  "flex flex-col gap-3 py-2 px-4 rounded-2xl",
+                  isActive("confirmPassword")
+                    ? "bg-blue-200 dark:bg-blue-700 scale-[1.02] shadow-md"
+                    : "bg-neutral-100 dark:bg-neutral-600 opacity-80 "
+                )}
+              >
                 <div className="flex gap-5">
                   {inputsMatch(password, confirmPassword) ? (
                     <Check></Check>

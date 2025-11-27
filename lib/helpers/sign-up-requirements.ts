@@ -30,3 +30,7 @@ export function emailIsValid(email: string) {
     dotIndex - atIndex != 1
   );
 }
+
+export const displayNameMaxLength = 20;
+export const displayNameLength = (displayName: string) =>
+  displayName.length <= displayNameMaxLength;

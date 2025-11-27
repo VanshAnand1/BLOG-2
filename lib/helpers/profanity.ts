@@ -13,6 +13,7 @@ filter.removeWords(
   "dingleberries",
   "dingleberry",
   "fecal",
+  "hell",
   "honkey",
   "kinky",
   "nude",
