@@ -52,7 +52,7 @@ export default function SignUpForm({
 
   const [currentField, setCurrentField] = useState<InputField | null>();
   const [usernameIsUnique, setUsernameIsUnique] = useState(false);
-  const [usernameProfanityFree, setUsernameProfanityFree] = useState(false);
+  const [usernameIsValid, setUsernameIsValid] = useState(false);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -83,13 +83,15 @@ export default function SignUpForm({
         setUsernameIsUnique(data?.length === 0);
       };
 
-      const isUsernameProfanityFree = () =>
-        setUsernameProfanityFree(IsProfanitySafe(displayName));
-
       isUsernameUnique();
-      isUsernameProfanityFree();
     }
   }, [debounce, displayName]);
+
+  useEffect(() => {
+    if (displayName) {
+      setUsernameIsValid(IsProfanitySafe(displayName));
+    }
+  }, [displayName]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -331,7 +333,15 @@ export default function SignUpForm({
                 </div>
 
                 <div className="flex gap-5">
-                  {usernameProfanityFree ? <Check></Check> : <X></X>}
+                  {displayName ? (
+                    usernameIsValid ? (
+                      <Check></Check>
+                    ) : (
+                      <X></X>
+                    )
+                  ) : (
+                    <QuestionMark></QuestionMark>
+                  )}
                   <p>Display Name is valid</p>
                 </div>
               </div>
