@@ -24,6 +24,8 @@ filter.removeWords(
   "sucks"
 );
 
+const stems = ["fuck", "shit"];
+
 function NormalizeText(inputText: string) {
   const input = String(inputText)
     .toLowerCase()
@@ -62,6 +64,8 @@ function NormalizeText(inputText: string) {
 
 export function IsProfanitySafe(inputText: string) {
   const normalized = NormalizeText(inputText);
+  if (normalized && stems.some((stem) => normalized.includes(stem)))
+    return false;
   return !filter.isProfane(inputText) && !filter.isProfane(normalized);
 }
 

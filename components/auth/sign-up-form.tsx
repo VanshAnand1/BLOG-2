@@ -99,6 +99,12 @@ export default function SignUpForm({
     setIsLoading(true);
     setError(null);
 
+    if (!IsProfanitySafe(displayName)) {
+      setError("Display name contains inappropriate language");
+      setIsLoading(false);
+      return;
+    }
+
     if (!isPasswordSecure(password, confirmPassword)) {
       setError("Password does not meet requirements");
       setIsLoading(false);
