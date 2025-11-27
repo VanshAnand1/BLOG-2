@@ -20,12 +20,13 @@ import { toast } from "sonner";
 import { IsProfanitySafe } from "@/lib/helpers/profanity";
 import {
   isPasswordSecure,
-  passwordsMatch,
+  inputsMatch,
   passwordLength,
   passwordContainsLowerCase,
   passwordContainsNumber,
   passwordContainsUpperCase,
-} from "@/lib/helpers/password";
+  emailIsValid,
+} from "@/lib/helpers/sign-up-requirements";
 
 export type InputField =
   | "email"
@@ -46,35 +47,49 @@ export default function SignUpForm({
 
   const [error, setError] = useState<string | null>();
   const [isLoading, setIsLoading] = useState(false);
+  const [debounce, setDebounce] = useState("");
   const router = useRouter();
 
   const [currentField, setCurrentField] = useState<InputField | null>();
-  const [isUsernameUnique, setIsUsernameUnique] = useState(false);
-  const [isUsernameProfanity, setIsUsernameProfanity] = useState(false);
+  const [usernameIsUnique, setUsernameIsUnique] = useState(false);
+  const [usernameProfanityFree, setUsernameProfanityFree] = useState(false);
 
-  const emailIsValid = () => /[@]/.test(email);
-  const checkUsernameProfanity = () =>
-    setIsUsernameProfanity(!IsProfanitySafe(displayName));
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebounce(displayName);
+    }, 400);
 
-  const usernameIsUnique = async () => {
-    const supabase = createClient();
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("display_name")
-      .eq("display_name", displayName);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [displayName]);
 
-    if (error) {
-      setIsUsernameUnique(false);
-      return false;
+  useEffect(() => {
+    if (debounce) {
+      const isUsernameUnique = async () => {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("display_name")
+          .eq("display_name", displayName);
+
+        if (error) {
+          setUsernameIsUnique(false);
+          toast.error(
+            error instanceof Error ? error.message : "Unknown error occurred"
+          );
+          return;
+        }
+        setUsernameIsUnique(data?.length === 0);
+      };
+
+      const isUsernameProfanityFree = () =>
+        setUsernameProfanityFree(IsProfanitySafe(displayName));
+
+      isUsernameUnique();
+      isUsernameProfanityFree();
     }
-    setIsUsernameUnique(data?.length === 0);
-    return data?.length === 0;
-  };
-
-  const checkEmailMatch = () => {
-    if (!email && !confirmEmail) return false;
-    return email === confirmEmail;
-  };
+  }, [debounce, displayName]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,16 +98,12 @@ export default function SignUpForm({
     setError(null);
 
     if (!isPasswordSecure(password, confirmPassword)) {
-      return;
-    }
-
-    if (!passwordsMatch(password, confirmPassword)) {
-      setError("Passwords do not match");
+      setError("Password does not meet requirements");
       setIsLoading(false);
       return;
     }
 
-    if (!(await usernameIsUnique())) {
+    if (!usernameIsUnique) {
       setError("Username is already taken");
       setIsLoading(false);
       return;
@@ -203,7 +214,6 @@ export default function SignUpForm({
                     value={displayName}
                     onChange={(e) => {
                       setDisplayName(e.target.value);
-                      setIsUsernameUnique(false);
                     }}
                     required
                     onClick={(e) => {
@@ -295,14 +305,35 @@ export default function SignUpForm({
           <CardContent>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-3">
-                <p>Email is a valid email</p>
+                <div className="flex gap-5">
+                  {emailIsValid(email) ? <Check></Check> : <X></X>}
+                  <p>Email is a valid email</p>
+                </div>
               </div>
               <div className="flex flex-col gap-3">
-                <p>Confirm Email matches email</p>
+                <div className="flex gap-5">
+                  {inputsMatch(email, confirmEmail) ? <Check></Check> : <X></X>}
+                  <p>Confirm Email matches email</p>
+                </div>
               </div>
               <div className="flex flex-col gap-3">
-                <p>Display Name is available</p>
-                <p>Display Name is Valid</p>
+                <div className="flex gap-5">
+                  {debounce ? (
+                    usernameIsUnique ? (
+                      <Check></Check>
+                    ) : (
+                      <X></X>
+                    )
+                  ) : (
+                    <QuestionMark></QuestionMark>
+                  )}
+                  <p>Display Name is available</p>
+                </div>
+
+                <div className="flex gap-5">
+                  {usernameProfanityFree ? <Check></Check> : <X></X>}
+                  <p>Display Name is valid</p>
+                </div>
               </div>
               <div className="flex flex-col gap-3">
                 <div className="flex gap-5">
@@ -332,7 +363,7 @@ export default function SignUpForm({
               </div>
               <div className="flex flex-col gap-3">
                 <div className="flex gap-5">
-                  {passwordsMatch(password, confirmPassword) ? (
+                  {inputsMatch(password, confirmPassword) ? (
                     <Check></Check>
                   ) : (
                     <X></X>

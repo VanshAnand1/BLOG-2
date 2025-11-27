@@ -15,7 +15,7 @@ import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { isPasswordSecure } from "@/lib/helpers/password";
+import { isPasswordSecure } from "@/lib/helpers/sign-up-requirements";
 
 export default function UpdatePasswordForm({
   className,
