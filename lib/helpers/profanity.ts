@@ -1,9 +1,7 @@
-import * as LeoProfanity from "leo-profanity";
+import { Filter } from "bad-words";
+const filter = new Filter();
 
-const filter = LeoProfanity;
-filter.loadDictionary("en");
-
-filter.remove([
+filter.removeWords(
   "ass",
   "arsehole",
   "asshole",
@@ -23,8 +21,8 @@ filter.remove([
   "yaoi",
   "wank",
   "suck",
-  "sucks",
-]);
+  "sucks"
+);
 
 function NormalizeText(inputText: string) {
   const input = String(inputText)
@@ -55,13 +53,16 @@ function NormalizeText(inputText: string) {
       (LeetSpeakMap as Record<string | number, string>)[char] || char;
   }
 
-  normalizedString = normalizedString.replace(/[^a-z0-9]+/g, " ").trim();
+  normalizedString = normalizedString
+    .replace(/(.)\1+/g, "$1")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
   return normalizedString;
 }
 
 export function IsProfanitySafe(inputText: string) {
   const normalized = NormalizeText(inputText);
-  return !filter.check(inputText) && !filter.check(normalized);
+  return !filter.isProfane(inputText) && !filter.isProfane(normalized);
 }
 
 export function MakeProfanitySafe(inputText: string) {
