@@ -113,36 +113,42 @@ export default function SignUpForm({
 
     if (!displayNameDoesNotContainSpaces(displayName)) {
       setError("Display Name must not contain spaces");
+      toast.error("Display Name must not contain spaces");
       setIsLoading(false);
       return;
     }
 
     if (!IsProfanitySafe(displayName)) {
       setError("Display Name contains inappropriate language");
+      toast.error("Display Name contains inappropriate language");
       setIsLoading(false);
       return;
     }
 
     if (!usernameIsUnique) {
       setError("Display Name is already taken");
+      toast.error("Display Name is already taken");
       setIsLoading(false);
       return;
     }
 
     if (!isPasswordSecure(password)) {
       setError("Password does not meet requirements");
+      toast.error("Password does not meet requirements");
       setIsLoading(false);
       return;
     }
 
     if (!inputsMatch(password, confirmPassword)) {
       setError("Passwords do not match");
+      toast.error("Passwords do not match");
       setIsLoading(false);
       return;
     }
 
     if (!inputsMatch(email, confirmEmail)) {
       setError("Emails do not match");
+      toast.error("Emails do not match");
       setIsLoading(false);
       return;
     }
