@@ -1,4 +1,4 @@
-BLOG-2, the sequel to the original BLOG.
+BLOG-2, the sequel to the original BLOG. NEW YEAR NEW BLOG
 
 Features:
 

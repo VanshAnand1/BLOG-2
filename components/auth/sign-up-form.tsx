@@ -106,6 +106,7 @@ export default function SignUpForm({
 
     if (!displayNameLength(displayName)) {
       setError("Display Name is too long");
+      toast.error("Display Name is too long");
       setIsLoading(false);
       return;
     }
@@ -163,7 +164,13 @@ export default function SignUpForm({
       setError(
         error instanceof Error ? error.message : "An Unknown error has occured"
       );
-      toast.error("Signup failed");
+      toast.error(
+        `Signup failed: ${
+          error instanceof Error
+            ? error.message
+            : "An Unknown error has occured"
+        }`
+      );
     } finally {
       setIsLoading(false);
     }

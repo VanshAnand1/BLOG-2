@@ -15,7 +15,10 @@ import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { isPasswordSecure } from "@/lib/helpers/sign-up-requirements";
+import {
+  isPasswordSecure,
+  inputsMatch,
+} from "@/lib/helpers/sign-up-requirements";
 
 export default function UpdatePasswordForm({
   className,
@@ -33,9 +36,16 @@ export default function UpdatePasswordForm({
     setIsLoading(true);
     const supabase = createClient();
 
-    if (!isPasswordSecure(password, confirmPassword)) {
+    if (!isPasswordSecure(password)) {
       setError("Password does not meet criteria");
       toast.error("Password does not meet criteria");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!inputsMatch(password, confirmPassword)) {
+      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       setIsLoading(false);
       return;
     }
