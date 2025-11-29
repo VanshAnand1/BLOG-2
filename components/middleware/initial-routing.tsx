@@ -38,7 +38,7 @@ export default function InitialRouting() {
     } else {
       router.push("/auth/login");
     }
-  }, [user, isLoading]);
+  }, [user, isLoading, router]);
 
   return (
     <div className="h-screen items-center flex justify-center text-2xl font-bold">
