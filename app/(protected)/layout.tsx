@@ -1,3 +1,4 @@
+import SearchBar from "@/components/navigation-bar/search-bar";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
@@ -19,11 +20,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <div className="w-full bg-red-400 py-3 px-2">
+      <div className="flex justify-between w-full bg-red-400 py-3 px-2">
         <div>
           <Link href="/">BLOG-2</Link>
         </div>
-        <div></div>
+        <div className="flex">
+          <SearchBar></SearchBar>
+        </div>
         <div>
           <Button>Hello</Button>
         </div>

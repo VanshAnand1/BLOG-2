@@ -1,7 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 export default function SearchBar() {
@@ -29,24 +28,24 @@ export default function SearchBar() {
               <circle cx="11" cy="11" r="7" />
               <path d="M20 20l-3.5-3.5" />
             </svg>
-            <Input
-              type="text"
-              id="search"
-              placeholder="Search..."
-              value={searchQuery}
-              className="w-full h-10 rounded-l-xl bg-neutral-500 text-white placeholder-white/50 pl-10 pr-3 border border-white/10 focus:outline-none focus:ring-2 dark:focus:ring-teagreen focus:border-transparent"
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-              }}
-            ></Input>
           </span>
+          <Input
+            type="text"
+            id="search"
+            placeholder="Search..."
+            value={searchQuery}
+            className="w-full h-10 rounded-l-xl bg-neutral-500 text-white placeholder-white/50 pl-10 pr-3 border border-white/10 focus:outline-none focus:ring-2 dark:focus:ring-teagreen focus:border-transparent"
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
+          ></Input>
         </div>
-        <Button
+        <button
           type="submit"
           className="text-white dark:text-black h-10 px-4 rounded-r-xl dark:bg-teagreen/80 font-bold dark:hover:bg-teagreen transition bg-navy/80 hover:bg-navy/60"
         >
           Search
-        </Button>
+        </button>
       </div>
     </form>
   );
