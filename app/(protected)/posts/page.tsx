@@ -5,11 +5,7 @@ export default async function Page() {
   const {
     data: { user },
   } = await (await supabase).auth.getUser();
+  const isGuest = !user || user.user_metadata?.is_anonymous;
 
-  let anonymous = false;
-  if (user?.user_metadata?.is_anonymous) {
-    anonymous = true;
-  }
-
-  return <div>{String(anonymous)}</div>;
+  return <div>{String(isGuest)}</div>;
 }

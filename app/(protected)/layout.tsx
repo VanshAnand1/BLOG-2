@@ -1,37 +1,31 @@
+import LogoutButton from "@/components/navigation-bar/logout-button";
+import ProfileButton from "@/components/navigation-bar/profile-button";
 import SearchBar from "@/components/navigation-bar/search-bar";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await (await supabase).auth.getUser();
-
-  let anonymous = false;
-  if (user?.user_metadata?.is_anonymous) {
-    anonymous = true;
-  }
-
   return (
-    <html lang="en" suppressHydrationWarning>
-      <div className="flex justify-between w-full bg-red-400 py-3 px-2">
-        <div>
-          <Link href="/">BLOG-2</Link>
-        </div>
-        <div className="flex">
+    <div>
+      <div className="flex justify-between w-full bg-red-400 py-3 px-4">
+        <div className="flex gap-12 flex-2">
+          <Button className="bg-transparent border-none shadow-none hover:bg-transparent hover:bg-red-300 hover:shadow-lg">
+            <Link href="/" className="text-lg">
+              BLOG-2
+            </Link>
+          </Button>
           <SearchBar></SearchBar>
         </div>
-        <div>
-          <Button>Hello</Button>
+        <div className="flex gap-6">
+          <ProfileButton></ProfileButton>
+          <LogoutButton></LogoutButton>
         </div>
       </div>
-      <body>{children}</body>
-    </html>
+      {children}
+    </div>
   );
 }

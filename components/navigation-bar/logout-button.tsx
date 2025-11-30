@@ -1,6 +1,7 @@
 "use client";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function LogoutButton() {
   async function handleLogout() {
@@ -14,8 +15,10 @@ export default function LogoutButton() {
   }
 
   return (
-    <Link href="/auth/login" onClick={handleLogout}>
-      Logout
-    </Link>
+    <Button>
+      <Link href="/auth/login" onClick={handleLogout}>
+        Logout
+      </Link>
+    </Button>
   );
 }

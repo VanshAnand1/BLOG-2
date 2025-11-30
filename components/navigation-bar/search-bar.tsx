@@ -13,7 +13,7 @@ export default function SearchBar() {
   };
 
   return (
-    <form onClick={handleSearch}>
+    <form onSubmit={handleSearch}>
       <div className="flex w-full">
         <div className="relative flex-1">
           <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
