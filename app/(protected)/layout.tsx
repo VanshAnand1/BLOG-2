@@ -2,13 +2,24 @@ import LogoutButton from "@/components/navigation-bar/logout-button";
 import ProfileButton from "@/components/navigation-bar/profile-button";
 import SearchBar from "@/components/navigation-bar/search-bar";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
-export default function RootLayout({
+export type isGuest = {
+  isGuest: boolean;
+};
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await (await supabase).auth.getUser();
+  const isGuest = !user || user.user_metadata?.is_anonymous;
+
   return (
     <div>
       <div className="flex justify-between w-full bg-red-400 py-3 px-4">
@@ -21,7 +32,16 @@ export default function RootLayout({
           <SearchBar></SearchBar>
         </div>
         <div className="flex gap-6">
-          <ProfileButton></ProfileButton>
+          {isGuest ? (
+            <Button>
+              <Link href="/profiles/guest">Guest Mode</Link>
+            </Button>
+          ) : (
+            <ProfileButton
+              displayName={String(user.user_metadata.display_name)}
+              id={user.id}
+            ></ProfileButton>
+          )}
           <LogoutButton></LogoutButton>
         </div>
       </div>
