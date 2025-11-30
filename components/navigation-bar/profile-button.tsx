@@ -18,7 +18,9 @@ export default async function ProfileButton() {
   } else {
     return (
       <Button>
-        <Link href={`/profiles/${user.id}`}>Profile: {}</Link>
+        <Link href={`/profiles/${user.id}`}>
+          Profile: {user.user_metadata.display_name}
+        </Link>
       </Button>
     );
   }
