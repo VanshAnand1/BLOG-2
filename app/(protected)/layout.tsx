@@ -23,8 +23,8 @@ export default async function RootLayout({
   return (
     <div>
       <div className="flex justify-between w-full bg-red-400 py-3 px-4">
-        <div className="flex gap-12 flex-2">
-          <Button className="bg-transparent border-none shadow-none hover:bg-transparent hover:bg-red-300 hover:shadow-lg">
+        <div className="flex gap-6 flex-2 max-w-6xl w-full">
+          <Button className="bg-transparent border-none shadow-none hover:bg-transparent hover:bg-red-300 hover:shadow-lg font-bold">
             <Link href="/" className="text-lg">
               BLOG-2
             </Link>
@@ -34,15 +34,26 @@ export default async function RootLayout({
         <div className="flex gap-6">
           {isGuest ? (
             <Button>
-              <Link href="/profiles/guest">Guest Mode</Link>
+              <Link href="/profiles/guest">About Guest Mode</Link>
             </Button>
           ) : (
             <ProfileButton
-              displayName={String(user.user_metadata.display_name)}
+              displayName={user.user_metadata.display_name}
               id={user.id}
             ></ProfileButton>
           )}
-          <LogoutButton></LogoutButton>
+          {isGuest ? (
+            <div className="flex gap-4">
+              <Button>
+                <Link href="/auth/signup">Create Account</Link>
+              </Button>
+              <Button>
+                <Link href="/auth/login">Sign in</Link>
+              </Button>
+            </div>
+          ) : (
+            <LogoutButton></LogoutButton>
+          )}
         </div>
       </div>
       {children}
