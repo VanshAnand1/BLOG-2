@@ -22,13 +22,13 @@ export default async function RootLayout({
 
   return (
     <div>
-      <div className="flex justify-between w-full bg-red-400 py-3 px-4">
-        <div className="flex gap-6 flex-2 max-w-6xl w-full">
-          <Button className="bg-transparent border-none shadow-none hover:bg-transparent hover:bg-red-300 hover:shadow-lg font-bold">
-            <Link href="/" className="text-lg">
-              BLOG-2
-            </Link>
-          </Button>
+      <div className="flex justify-between w-full bg-red-400 py-3 px-4 gap-12">
+        <div className="flex gap-6 flex-2 max-w-5xl w-full">
+          {/* <Button className=""> */}
+          <Link href="/" className="text-lg font-bold">
+            BLOG-2
+          </Link>
+          {/* </Button> */}
           <SearchBar></SearchBar>
         </div>
         <div className="flex gap-6">
