@@ -41,6 +41,12 @@ export default function SearchBar() {
           ></Input>
         </div>
         <button
+          type="button"
+          className="text-white dark:text-black h-10 px-4 dark:bg-teagreen/80 font-bold dark:hover:bg-teagreen transition bg-navy/80 hover:bg-navy/60"
+        >
+          Filters
+        </button>
+        <button
           type="submit"
           className="text-white dark:text-black h-10 px-4 rounded-r-xl dark:bg-teagreen/80 font-bold dark:hover:bg-teagreen transition bg-navy/80 hover:bg-navy/60"
         >
