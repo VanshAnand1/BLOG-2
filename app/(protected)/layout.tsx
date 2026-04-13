@@ -23,39 +23,43 @@ export default async function RootLayout({
 
   return (
     <div>
-      <div className="flex justify-between w-full bg-red-400 py-3 px-4 gap-12">
+      <div className="flex justify-between w-full bg-white dark:bg-black py-3 px-4 gap-8 shadow-lg">
         <div className="flex gap-6 flex-2 max-w-5xl w-full">
           <Link
             href="/"
-            className="text-md font-bold whitespace-nowrap flex items-center rounded-2xl bg-gray-200 px-4 py-2 dark:text-black"
+            className="text-md font-bold whitespace-nowrap flex items-center rounded-2xl bg-teagreen hover:bg-teagreen/90 px-4 py-2 text-black"
           >
             BLOG-2
           </Link>
           <SearchBar></SearchBar>
         </div>
-        <div className="flex gap-6">
-          {isGuest ? (
-            <Button>
-              <Link href="/profiles/guest">About Guest Mode</Link>
-            </Button>
-          ) : (
-            <ProfileButton
-              displayName={user.user_metadata.display_name}
-              id={user.id}
-            ></ProfileButton>
-          )}
-          {isGuest ? (
-            <div className="flex gap-4">
-              <Button>
-                <Link href="/auth/signup">Create Account</Link>
+        <div className="flex gap-4">
+          <div>
+            {isGuest ? (
+              <Button className="bg-teagreen hover:bg-teagreen/90 text-black font-bold transition h-10 px-4">
+                <Link href="/profiles/guest">About Guest Mode</Link>
               </Button>
-              <Button>
-                <Link href="/auth/login">Sign in</Link>
-              </Button>
-            </div>
-          ) : (
-            <LogoutButton></LogoutButton>
-          )}
+            ) : (
+              <ProfileButton
+                displayName={user.user_metadata.display_name}
+                id={user.id}
+              ></ProfileButton>
+            )}
+          </div>
+          <div>
+            {isGuest ? (
+              <div className="flex gap-4">
+                <Button className="bg-teagreen hover:bg-teagreen/90 text-black font-bold transition h-10 px-4">
+                  <Link href="/auth/signup">Create Account</Link>
+                </Button>
+                <Button className="bg-teagreen hover:bg-teagreen/90 text-black font-bold transition h-10 px-4">
+                  <Link href="/auth/login">Sign in</Link>
+                </Button>
+              </div>
+            ) : (
+              <LogoutButton></LogoutButton>
+            )}
+          </div>
         </div>
         <ThemeSwitcher />
       </div>

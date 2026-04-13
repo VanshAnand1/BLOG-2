@@ -34,7 +34,7 @@ export default function SearchBar() {
             id="search"
             placeholder="Search..."
             value={searchQuery}
-            className="w-full h-10 rounded-l-xl bg-neutral-500 text-white placeholder-white/50 pl-10 pr-3 border border-white/10 focus:outline-none focus:ring-2 dark:focus:ring-teagreen focus:border-transparent"
+            className="w-full h-10 rounded-l-xl dark:bg-white bg-neutral-500 text-white placeholder-white pl-10 pr-3 border border-white/10 focus:outline-none focus:ring-2 focus:ring-teagreen focus:border-transparent"
             onChange={(e) => {
               setSearchQuery(e.target.value);
             }}
@@ -42,13 +42,13 @@ export default function SearchBar() {
         </div>
         <button
           type="button"
-          className="text-white dark:text-black h-10 px-4 dark:bg-teagreen/80 font-bold dark:hover:bg-teagreen transition bg-navy/80 hover:bg-navy/60"
+          className="text-black h-10 px-4 font-bold transition bg-white hover:bg-white/90"
         >
           Filters
         </button>
         <button
           type="submit"
-          className="text-white dark:text-black h-10 px-4 rounded-r-xl dark:bg-teagreen/80 font-bold dark:hover:bg-teagreen transition bg-navy/80 hover:bg-navy/60"
+          className="text-black h-10 px-4 rounded-r-xl font-bold transition bg-teagreen hover:bg-teagreen/90"
         >
           Search
         </button>

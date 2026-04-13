@@ -3,7 +3,7 @@ import { type supabaseProfile } from "./profile";
 export type supabasePost = {
   id: string;
   author_id: string;
-  author_profile: supabaseProfile;
+  // author_profile: supabaseProfile;
   title: string;
   content: string;
   footer?: string;

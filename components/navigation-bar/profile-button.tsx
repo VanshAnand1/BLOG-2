@@ -9,7 +9,7 @@ export default function ProfileButton({
   id: string;
 }) {
   return (
-    <Button>
+    <Button className="bg-teagreen hover:bg-teagreen/90 text-black font-bold transition h-10 px-4">
       <Link href={`/profiles/${id}`}>Profile: {displayName}</Link>
     </Button>
   );

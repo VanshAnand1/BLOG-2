@@ -15,7 +15,7 @@ export default function LogoutButton() {
   }
 
   return (
-    <Button>
+    <Button className="bg-teagreen hover:bg-teagreen/90 text-black font-bold transition h-10 px-4">
       <Link href="/auth/login" onClick={handleLogout}>
         Logout
       </Link>
