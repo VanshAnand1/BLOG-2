@@ -159,7 +159,7 @@ export default function SignUpForm({
         password,
         options: {
           data: { display_name: displayName },
-          emailRedirectTo: `${window.location.origin}/protected`,
+          emailRedirectTo: `${window.location.origin}/auth/login`,
         },
       });
       if (error) throw error;

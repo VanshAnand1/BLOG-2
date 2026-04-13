@@ -20,7 +20,7 @@ const ThemeSwitcher = () => {
   const mounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
-    () => false
+    () => false,
   );
 
   if (!mounted) {

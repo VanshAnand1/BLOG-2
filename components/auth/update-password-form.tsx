@@ -38,7 +38,9 @@ export default function UpdatePasswordForm({
 
     if (!isPasswordSecure(password)) {
       setError("Password does not meet criteria");
-      toast.error("Password does not meet criteria");
+      toast.error(
+        "Password does not meet criteria - 8 characters, at least one uppercase and lowercase, and at least one number",
+      );
       setIsLoading(false);
       return;
     }
@@ -59,7 +61,7 @@ export default function UpdatePasswordForm({
       toast.error(
         `An Error Occured: ${
           error instanceof Error ? error.message : "An error occurred"
-        }`
+        }`,
       );
     } finally {
       setIsLoading(false);
@@ -70,7 +72,7 @@ export default function UpdatePasswordForm({
     <div
       className={cn(
         "mx-auto flex w-full flex-col gap-8 lg:max-w-5xl lg:flex-row",
-        className
+        className,
       )}
       {...props}
     >
