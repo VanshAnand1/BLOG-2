@@ -42,7 +42,7 @@ export default function SearchBar() {
         </div>
         <button
           type="button"
-          className="text-black h-10 px-4 font-bold transition bg-white hover:bg-white/90"
+          className="h-10 px-4 font-bold transition dark:bg-white dark:hover:bg-white/90 bg-neutral-500 hover:bg-neutral-400 text-white dark:text-black"
         >
           Filters
         </button>

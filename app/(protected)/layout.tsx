@@ -40,10 +40,15 @@ export default async function RootLayout({
                 <Link href="/profiles/guest">About Guest Mode</Link>
               </Button>
             ) : (
-              <ProfileButton
-                displayName={user.user_metadata.display_name}
-                id={user.id}
-              ></ProfileButton>
+              <div className="flex gap-4">
+                <Button className="bg-teagreen hover:bg-teagreen/90 text-black font-bold transition h-10 px-4 text-xl">
+                  <Link href="/posts/new">+</Link>
+                </Button>
+                <ProfileButton
+                  displayName={user.user_metadata.display_name}
+                  id={user.id}
+                ></ProfileButton>
+              </div>
             )}
           </div>
           <div>
